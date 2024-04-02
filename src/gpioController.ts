@@ -1,6 +1,10 @@
 import { Gpio } from "pigpio";
 
-const WHEEL_TICK_DEBOUNCE_MICROSECONDS = 10000; // Example value, adjust based on testing
+const TICKS_PER_ROTATION = 100;
+let tickCount = 0;
+let rotationCount = 0;
+
+const WHEEL_TICK_DEBOUNCE_MICROSECONDS = 1000; // Example value, adjust based on testing
 
 const sensor = new Gpio(17, {
   mode: Gpio.INPUT,
@@ -16,8 +20,15 @@ export const GPIO = {
   initSensorListener: (onTick: (level: number, tick: number) => void) => {
     sensor.on("alert", (level, tick) => {
       if (level === 0) {
-        // Assuming a magnet close to the sensor pulls the pin low
+        tickCount++;
+        console.log("Tick Count", tickCount);
         onTick(level, tick);
+
+        if (tickCount >= TICKS_PER_ROTATION) {
+          rotationCount++;
+          console.log(`Wheel has completed ${rotationCount} rotation(s)`);
+          tickCount = 0; // Reset tick count after counting a full rotation
+        }
       }
     });
   },
