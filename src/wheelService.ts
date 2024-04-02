@@ -47,16 +47,22 @@ const resetSpeedInterval = () => {
 };
 
 const calculateSpeed = () => {
-  const elapsedTime = Date.now() - lastTickTime;
-  console.log(`Elapsed Time: ${elapsedTime} ms`);
-  const timePerRotation = elapsedTime * TICKS_PER_ROTATION;
-  console.log(`Time per Rotation: ${timePerRotation} ms`);
-  const inchesPerHour = CIRCUMFERENCE_INCHES / timePerRotation;
-  console.log(`Inches per Hour: ${inchesPerHour}`);
-  currentSpeed = (inchesPerHour * SECONDS_PER_HOUR) / INCHES_PER_MILE;
+  if (tickCount === 0) {
+    // Calculate speed only at the end of a rotation
+    const currentTime = Date.now();
+    const elapsedTimeInSeconds = (currentTime - lastTickTime) / 1000; // Convert ms to seconds
+    const distanceCovered = CIRCUMFERENCE_INCHES / INCHES_PER_MILE; // Distance covered per rotation in miles
+    currentSpeed = (distanceCovered / elapsedTimeInSeconds) * SECONDS_PER_HOUR; // Speed in mph
+
+    console.log(
+      `Elapsed Time for one rotation: ${elapsedTimeInSeconds} seconds`
+    );
+  }
 };
 
 const handleTick = (tick: number) => {
+  const currentTime = Date.now();
+
   updateStatus();
   resetIdleInterval();
   tickCount++;
@@ -65,14 +71,15 @@ const handleTick = (tick: number) => {
     rotationCount++;
     tickCount = 0;
     onRotationComplete();
+    calculateSpeed();
+    lastTickTime = currentTime; // Update at the start of a new rotation
   }
-  calculateSpeed();
+
   console.log(
     `Tick Count: ${tickCount}, State: ${status}, Current Speed: ${currentSpeed.toFixed(
       2
     )} mph`
   );
-  lastTickTime = Date.now();
 };
 
 const init = () => {
