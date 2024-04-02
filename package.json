@@ -1,0 +1,23 @@
+{
+  "name": "one-fast-cat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:server": "tsc -p .",
+    "start:server": "node dist/index.js",
+    "start": "npm run build:server && npm run start:server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "pigpio": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.2",
+    "typescript": "^5.4.3"
+  }
+}
