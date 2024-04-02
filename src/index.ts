@@ -18,7 +18,7 @@ app.listen(port, () => {
 
 process.on("SIGINT", () => {
   console.log("SIGINT signal received: closing GPIO resources");
-
+  WheelService.kill();
   GPIO.cleanup();
   process.exit(0);
 });
