@@ -48,8 +48,11 @@ const resetSpeedInterval = () => {
 
 const calculateSpeed = () => {
   const elapsedTime = Date.now() - lastTickTime;
+  console.log(`Elapsed Time: ${elapsedTime} ms`);
   const timePerRotation = elapsedTime * TICKS_PER_ROTATION;
+  console.log(`Time per Rotation: ${timePerRotation} ms`);
   const inchesPerHour = CIRCUMFERENCE_INCHES / timePerRotation;
+  console.log(`Inches per Hour: ${inchesPerHour}`);
   currentSpeed = (inchesPerHour * SECONDS_PER_HOUR) / INCHES_PER_MILE;
 };
 
