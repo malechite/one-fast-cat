@@ -92,6 +92,7 @@ const endSession = () => {
   console.log(`Average Speed: ${averageSpeed} mph`);
   console.log(`Top Speed: ${topSpeed} mph`);
   console.log(`Total Number of Ticks: ${totalNumberOfTicks}`);
+  console.log("--------------------");
   resetSession();
   stopProcessor();
 };

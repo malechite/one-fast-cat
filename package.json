@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@feathersjs/feathers": "^5.0.24",
     "express": "^4.19.2",
     "luxon": "^3.4.4",
     "pigpio": "^3.3.1",
