@@ -38,6 +38,7 @@ const resetMetricUpdateInterval = () => {
 
 const idle = () => {
   if (status !== Status.Idle) {
+    TickManager.endSession();
     status = Status.Idle;
     currentSpeed = 0;
     console.log(`Wheel is now idle.`);

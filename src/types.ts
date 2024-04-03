@@ -1,4 +1,11 @@
-export interface Session {}
+export interface Session {
+  id: string;
+  distance: number;
+  startTime: number;
+  endTime?: number;
+  averageSpeed: number;
+  topSpeed: number;
+}
 
 export enum Status {
   Idle = "idle",
