@@ -4,20 +4,21 @@ import { Status } from "./types";
 
 let status = Status.Idle;
 let currentSpeed = 0; // in miles per hour
-let activityCheckInterval: NodeJS.Timeout | null = null;
-let metricUpdateInterval: NodeJS.Timeout | null = null;
+let idleTimer: NodeJS.Timeout | null = null;
+let reportingInterval: NodeJS.Timeout | null = null;
 
 const setStatus = (s: Status) => (status = s);
 const setSpeed = (speed: number) => (currentSpeed = speed);
 
 const init = () => {
-  if (!activityCheckInterval) resetIdleInterval();
-  if (!metricUpdateInterval) resetMetricUpdateInterval();
+  if (!idleTimer) resetIdleTimer();
+  if (!reportingInterval) resetReportingInterval();
 };
 
 const onTick = (tick: number) => {
   TickManager.handleTick(tick);
   setStatus(Status.Active);
+  resetIdleTimer();
 };
 
 const updateMetrics = () => {};
@@ -26,14 +27,14 @@ const onRotationComplete = () => {
   console.log(`Wheel has completed ${0} rotations.`);
 };
 
-const resetIdleInterval = () => {
-  if (activityCheckInterval) clearTimeout(activityCheckInterval);
-  activityCheckInterval = setTimeout(idle, 10000); // 10 seconds of inactivity
+const resetIdleTimer = () => {
+  if (idleTimer) clearTimeout(idleTimer);
+  idleTimer = setTimeout(idle, 10000); // 10 seconds of inactivity
 };
 
-const resetMetricUpdateInterval = () => {
-  if (metricUpdateInterval) clearTimeout(metricUpdateInterval);
-  metricUpdateInterval = setTimeout(updateMetrics, METRICS_UPDATE_INTERVAL);
+const resetReportingInterval = () => {
+  if (reportingInterval) clearInterval(reportingInterval);
+  reportingInterval = setInterval(updateMetrics, METRICS_UPDATE_INTERVAL);
 };
 
 const idle = () => {
@@ -46,10 +47,10 @@ const idle = () => {
 };
 
 const kill = () => {
-  if (activityCheckInterval) clearTimeout(activityCheckInterval);
-  if (metricUpdateInterval) clearTimeout(metricUpdateInterval);
-  activityCheckInterval = null;
-  metricUpdateInterval = null;
+  if (idleTimer) clearTimeout(idleTimer);
+  if (reportingInterval) clearTimeout(reportingInterval);
+  idleTimer = null;
+  reportingInterval = null;
   console.log(`WheelService stopped.`);
 };
 
