@@ -6,8 +6,10 @@ module.exports = {
     project: "./tsconfig.json",
   },
   settings: {},
+  plugins: ["prettier"],
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   rules: {
+    "prettier/prettier": ["error", { printWidth: 100 }],
     "@typescript-eslint/no-non-null-assertion": "error", // Disallows non-null assertions using the ! postfix operator
     "@typescript-eslint/no-explicit-any": "error", // Disallows usage of the any type
   },

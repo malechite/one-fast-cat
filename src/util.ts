@@ -31,8 +31,7 @@ export const calculateSpeedAndDistance = (ticks: Tick[]): SpeedAndDistance => {
   return { speed, distance: totalDistanceMiles };
 };
 
-export const getTopSpeed = (speedValues: number[]): number =>
-  Math.max(...speedValues);
+export const getTopSpeed = (speedValues: number[]): number => Math.max(...speedValues);
 
 export const getAverageSpeed = (speedValues: number[]): number => {
   const totalSpeed = speedValues.reduce((acc, speed) => acc + speed, 0);

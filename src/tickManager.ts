@@ -1,11 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Session, Tick } from "./types";
-import {
-  calculateSpeedAndDistance,
-  formatTimestamp,
-  getAverageSpeed,
-  getTopSpeed,
-} from "./util";
+import { calculateSpeedAndDistance, formatTimestamp, getAverageSpeed, getTopSpeed } from "./util";
 import { WheelService } from "./wheelService";
 import { TICK_PROCESS_INTERVAL } from "./constants";
 
@@ -41,8 +36,7 @@ const handleTick = (tick: number) => {
 };
 
 const processTicks = () => {
-  if (ticks.length < TICK_COLLECTION_SIZE)
-    return console.log("Not enough data to process.");
+  if (ticks.length < TICK_COLLECTION_SIZE) return console.log("Not enough data to process.");
 
   const elapsedTime = ticks[ticks.length - 1].timestamp - ticks[0].timestamp;
   const { speed, distance } = calculateSpeedAndDistance(ticks);
@@ -88,15 +82,7 @@ const endSession = () => {
   session.topSpeed = getTopSpeed(speedValues);
   session.totalNumberOfTicks = history.length + ticks.length;
 
-  const {
-    id,
-    distance,
-    startTime,
-    averageSpeed,
-    topSpeed,
-    endTime,
-    totalNumberOfTicks,
-  } = session;
+  const { id, distance, startTime, averageSpeed, topSpeed, endTime, totalNumberOfTicks } = session;
   // Dump session to database here
   console.log("--------------------");
   console.log(`Session ${id} ended`);
