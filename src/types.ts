@@ -5,6 +5,7 @@ export interface Session {
   endTime?: number;
   averageSpeed: number;
   topSpeed: number;
+  totalNumberOfTicks: number;
 }
 
 export enum Status {
@@ -13,6 +14,7 @@ export enum Status {
 }
 
 export interface Tick {
+  sessionId?: string;
   timestamp: number;
   raw: number;
 }

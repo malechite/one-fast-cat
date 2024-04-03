@@ -26,17 +26,18 @@ const startSession = () => {
     startTime: Date.now(),
     averageSpeed: 0,
     topSpeed: 0,
+    totalNumberOfTicks: 0,
   };
 
   startProcessor();
-  console.log(`Session ${session.id} started`);
+  console.log(`Session ${session?.id} started`);
 };
 
 const handleTick = (tick: number) => {
+  if (!session && ticks.length >= TICK_COLLECTION_SIZE) startSession();
+
   const currentTick: Tick = { timestamp: Date.now(), raw: tick };
   ticks.push(currentTick);
-
-  if (!session && ticks.length >= TICK_COLLECTION_SIZE) startSession();
 };
 
 const processTicks = () => {
@@ -47,7 +48,10 @@ const processTicks = () => {
   const { speed, distance } = calculateSpeedAndDistance(ticks);
 
   console.log(`Processing ${ticks.length} ticks...`);
-  ticks.forEach((tick) => console.log(`Tick: ${tick.timestamp}`));
+  ticks.forEach((tick) => {
+    tick.sessionId = session?.id;
+    console.log(`Tick: ${tick.timestamp}`);
+  });
 
   console.log(`setting speed to ${speed}`);
   WheelService.setSpeed(speed);
@@ -82,8 +86,17 @@ const endSession = () => {
   session.endTime = Date.now();
   session.averageSpeed = getAverageSpeed(speedValues);
   session.topSpeed = getTopSpeed(speedValues);
+  session.totalNumberOfTicks = history.length + ticks.length;
 
-  const { id, distance, startTime, averageSpeed, topSpeed, endTime } = session;
+  const {
+    id,
+    distance,
+    startTime,
+    averageSpeed,
+    topSpeed,
+    endTime,
+    totalNumberOfTicks,
+  } = session;
   // Dump session to database here
   console.log("--------------------");
   console.log(`Session ${id} ended`);
@@ -92,6 +105,7 @@ const endSession = () => {
   console.log(`End Time: ${formatTimestamp(endTime)}`);
   console.log(`Average Speed: ${averageSpeed} mph`);
   console.log(`Top Speed: ${topSpeed} mph`);
+  console.log(`Total Number of Ticks: ${totalNumberOfTicks}`);
   resetSession();
   stopProcessor();
 };
