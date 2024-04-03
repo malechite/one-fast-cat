@@ -12,7 +12,7 @@ let ticks: Tick[] = [];
 let session: Session | null = null;
 let processInterval: NodeJS.Timeout | null = null;
 
-const init = () => resetProcessInterval();
+const init = () => startProcessor();
 
 const startSession = () => {
   if (session) return;
@@ -85,11 +85,16 @@ const endSession = () => {
   console.log(`Average Speed: ${averageSpeed} mph`);
   console.log(`Top Speed: ${topSpeed} mph`);
   resetSession();
+  stopProcessor();
 };
 
-const resetProcessInterval = () => {
-  if (processInterval) clearInterval(processInterval);
+const startProcessor = () => {
+  stopProcessor();
   processInterval = setInterval(processTicks, TICK_PROCESS_INTERVAL);
+};
+
+const stopProcessor = () => {
+  if (processInterval) clearInterval(processInterval);
 };
 
 export const TickManager = {
