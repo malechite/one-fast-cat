@@ -8,7 +8,7 @@ const port = 3000; // Example port
 WheelService.init();
 
 GPIO.initSensorListener((level, tick) => {
-  WheelService.handleTick(tick);
+  WheelService.onTick(tick);
 });
 
 app.listen(port, () => {
