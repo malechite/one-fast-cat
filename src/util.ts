@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import {
   INCHES_PER_MILE,
   MS_PER_SECOND,
@@ -30,5 +31,18 @@ export const calculateSpeedAndDistance = (ticks: Tick[]): SpeedAndDistance => {
   return { speed, distance: totalDistanceMiles };
 };
 
-export const timeToHours = (time: number): number =>
-  time / MS_PER_SECOND / SECONDS_PER_HOUR;
+export const getTopSpeed = (speedValues: number[]): number =>
+  Math.max(...speedValues);
+
+export const getAverageSpeed = (speedValues: number[]): number => {
+  const totalSpeed = speedValues.reduce((acc, speed) => acc + speed, 0);
+  return totalSpeed / speedValues.length;
+};
+
+export const timeToHours = (time: number): number => {
+  return time / MS_PER_SECOND / SECONDS_PER_HOUR;
+};
+
+export const formatTimestamp = (timestamp: number): string => {
+  return DateTime.fromMillis(timestamp).toFormat("dd/MM/yyyy HH:mm:ss");
+};
