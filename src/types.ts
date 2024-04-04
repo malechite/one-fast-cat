@@ -3,6 +3,7 @@ export interface Session {
   distance: number;
   startTime: number;
   endTime?: number;
+  duration: number;
   averageSpeed: number;
   topSpeed: number;
   totalNumberOfTicks: number;
@@ -17,4 +18,9 @@ export interface Tick {
   sessionId?: string;
   timestamp: number;
   raw: number;
+}
+
+export enum ServiceName {
+  Ticks = "ticks",
+  Sessions = "sessions",
 }

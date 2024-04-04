@@ -1,5 +1,7 @@
 export const METRICS_UPDATE_INTERVAL = 1000;
-export const TICK_PROCESS_INTERVAL = 5000;
+export const TICK_PROCESS_INTERVAL = 1000;
+
+export const TICK_COLLECTION_SIZE = 3;
 
 export const TICKS_PER_ROTATION = 16;
 export const INCHES_PER_MILE = 63360;

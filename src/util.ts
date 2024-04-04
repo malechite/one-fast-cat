@@ -42,6 +42,4 @@ export const timeToHours = (time: number): number => {
   return time / MS_PER_SECOND / SECONDS_PER_HOUR;
 };
 
-export const formatTimestamp = (timestamp: number): string => {
-  return DateTime.fromMillis(timestamp).toFormat("dd/MM/yyyy HH:mm:ss");
-};
+export const formatTimestamp = (timestamp?: number): string => timestamp ? DateTime.fromMillis(timestamp).toFormat("dd/MM/yyyy HH:mm:ss") : ""

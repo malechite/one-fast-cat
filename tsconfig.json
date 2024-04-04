@@ -17,9 +17,10 @@
     "~/": ["./src"]
   },
   "include": [
-    "./src"
+    "./src",
+    "./migrations"
   ],
   "exclude": [
-    "test"
+    "test",
   ]
 }
