@@ -36,7 +36,7 @@ export const sessionsDataValidator = getValidator(sessionsDataSchema, dataValida
 export const sessionsDataResolver = resolve<Sessions, HookContext<SessionsService>>({})
 
 // Schema for updating existing entries
-export const sessionsPatchSchema = Type.Pick(sessionsSchema, ['distance', 'startTime', 'endTime', 'duration', 'averageSpeed', 'topSpeed', 'totalNumberOfTicks'], {
+export const sessionsPatchSchema = Type.Partial(sessionsSchema, {
   $id: 'SessionsPatch'
 })
 export type SessionsPatch = Static<typeof sessionsPatchSchema>
