@@ -15,7 +15,7 @@ export enum Status {
 }
 
 export interface Tick {
-  sessionId: string;
+  sessionId?: string;
   timestamp: number;
   raw: number;
 }
