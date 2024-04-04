@@ -11,8 +11,7 @@ export async function up(knex: Knex): Promise<void> {
     table.float('averageSpeed').notNullable()
     table.float('topSpeed').notNullable()
     table.integer('totalNumberOfTicks').notNullable()
-    table.timestamp('createdAt').defaultTo(knex.fn.now())
-    table.timestamp('updatedAt').defaultTo(knex.fn.now())
+    table.timestamps(true, true);
   })
 }
 
