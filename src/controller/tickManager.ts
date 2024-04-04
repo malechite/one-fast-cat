@@ -81,7 +81,7 @@ const endSession = () => {
   session.endTime = Date.now();
   session.averageSpeed = getAverageSpeed(speedValues);
   session.topSpeed = getTopSpeed(speedValues);
-  session.totalNumberOfTicks = history.length + ticks.length;
+  session.totalNumberOfTicks = history.length;
   session.duration = session.endTime - session.startTime;
 
   sessionService.update(session.id, session);
@@ -92,12 +92,13 @@ const endSession = () => {
 
 const logSessionToConsole = () => {
   if (!session) return;
-  const { id, distance, startTime, averageSpeed, topSpeed, endTime, totalNumberOfTicks } = session;
+  const { id, distance, startTime, averageSpeed, topSpeed, endTime, totalNumberOfTicks, duration } = session;
   console.log("--------------------");
   console.log(`Session ${id}`);
   console.log(`Distance: ${distance} miles`);
   console.log(`Start Time: ${formatTimestamp(startTime)}`);
   console.log(`End Time: ${formatTimestamp(endTime)}`);
+  console.log(`Duration: ${duration}ms`);
   console.log(`Average Speed: ${averageSpeed} mph`);
   console.log(`Top Speed: ${topSpeed} mph`);
   console.log(`Total Number of Ticks: ${totalNumberOfTicks}`);

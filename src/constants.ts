@@ -1,5 +1,5 @@
 export const METRICS_UPDATE_INTERVAL = 1000;
-export const TICK_PROCESS_INTERVAL = 1000;
+export const TICK_PROCESS_INTERVAL = 2000;
 
 export const TICK_COLLECTION_SIZE = 3;
 
