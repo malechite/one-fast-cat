@@ -35,7 +35,7 @@ const startSession = async () => {
 const handleTick = (tick: number) => {
   if (!session && ticks.length >= TICK_COLLECTION_SIZE) startSession();
 
-  const currentTick: Tick = { timestamp: Date.now(), raw: tick, sessionId: session?.id || ""};
+  const currentTick: Tick = { timestamp: Date.now(), raw: tick };
   ticks.push(currentTick);
 };
 
@@ -46,6 +46,7 @@ const processTicks = () => {
   const { speed, distance } = calculateSpeedAndDistance(ticks);
 
   console.log(`Processing ${ticks.length} ticks...`);
+  ticks.forEach((tick) => tick.sessionId = session?.id);
 
   console.log(`setting speed to ${speed}`);
   WheelController.setSpeed(speed);

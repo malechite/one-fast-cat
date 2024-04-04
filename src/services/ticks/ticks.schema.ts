@@ -11,7 +11,7 @@ import type { TicksService } from './ticks.class'
 export const ticksSchema = Type.Object(
   {
     id: Type.Number(),
-    sessionId: Type.String(),
+    sessionId: Type.Optional(Type.String()),
     timestamp: Type.Number(),
     raw: Type.Number()
   },
