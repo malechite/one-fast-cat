@@ -1,8 +1,8 @@
 export interface Session {
   id: string;
   distance: number;
-  startTime: number;
-  endTime?: number;
+  startTime: string;
+  endTime?: string;
   duration: number;
   averageSpeed: number;
   topSpeed: number;

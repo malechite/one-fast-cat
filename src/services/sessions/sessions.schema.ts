@@ -12,8 +12,8 @@ export const sessionsSchema = Type.Object(
   {
     id: Type.String(),
     distance: Type.Number(),
-    startTime: Type.Number(),
-    endTime: Type.Optional(Type.Number()),
+    startTime: Type.String({ format: 'date-time' }), 
+    endTime: Type.Optional(Type.String({ format: 'date-time' })),
     duration: Type.Number(),
     averageSpeed: Type.Number(),
     topSpeed: Type.Number(),

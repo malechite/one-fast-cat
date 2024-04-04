@@ -20,7 +20,7 @@ const startSession = async () => {
   session = {
     id: uuidv4(),
     distance: 0,
-    startTime: Date.now(),
+    startTime: new Date().toISOString(),
     duration: 0,
     averageSpeed: 0,
     topSpeed: 0,
@@ -80,11 +80,11 @@ const getLastTickTimestamp = () => history[history.length - 1].timestamp;
 
 const endSession = () => {
   if (!session) return;
-  session.endTime = getLastTickTimestamp();
+  session.endTime = new Date(getLastTickTimestamp() * 1000).toISOString();
   session.averageSpeed = getAverageSpeed(speedValues);
   session.topSpeed = getTopSpeed(speedValues);
   session.totalNumberOfTicks = history.length;
-  session.duration = session.endTime - session.startTime;
+  session.duration = session.endTime ? new Date(session.endTime).getTime() - new Date(session.startTime).getTime() : 0;
 
   sessionService.update(session.id, session);
   logSessionToConsole();
