@@ -1,4 +1,7 @@
 .env
+config/production.json
+config/staging.json
+config/development.json
 node_modules/
 .DS_Store
 dist/
