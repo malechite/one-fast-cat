@@ -1,6 +1,6 @@
-import { METRICS_UPDATE_INTERVAL } from "./constants";
+import { METRICS_UPDATE_INTERVAL } from "../constants";
 import { TickManager } from "./tickManager";
-import { Status } from "./types";
+import { Status } from "../types";
 
 let status = Status.Idle;
 let currentSpeed = 0; // in miles per hour
@@ -51,10 +51,10 @@ const kill = () => {
   if (reportingInterval) clearTimeout(reportingInterval);
   idleTimer = null;
   reportingInterval = null;
-  console.log(`WheelService stopped.`);
+  console.log(`WheelController stopped.`);
 };
 
-export const WheelService = {
+export const WheelController = {
   status,
   currentSpeed,
   onRotationComplete,

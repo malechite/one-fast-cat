@@ -1,24 +1,24 @@
-import express from "express";
-import { GPIO } from "./gpioController";
-import { WheelService } from "./wheelService";
+import { app } from "./app";
+import { logger } from "./logger";
+import { GPIO } from "./controller/gpioController";
+import { WheelController } from "./controller/wheelController";
 
-const app = express();
-const port = 3000; // Example port
+const port = app.get("port");
+const host = app.get("host");
 
-WheelService.init();
+process.on("unhandledRejection", (reason) => logger.error("Unhandled Rejection %O", reason));
 
 GPIO.initSensorListener((level, tick) => {
-  WheelService.onTick(tick);
+  WheelController.onTick(tick);
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-  // Other initialization logic can go here
+app.listen(port).then(() => {
+  logger.info(`Feathers app listening on http://${host}:${port}`);
 });
 
 process.on("SIGINT", () => {
   console.log("SIGINT signal received: closing GPIO resources");
-  WheelService.kill();
+  WheelController.kill();
   GPIO.cleanup();
   process.exit(0);
 });

@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
-import { Session, Tick } from "./types";
-import { calculateSpeedAndDistance, formatTimestamp, getAverageSpeed, getTopSpeed } from "./util";
-import { WheelService } from "./wheelService";
-import { TICK_PROCESS_INTERVAL } from "./constants";
+import { Session, Tick } from "../types";
+import { calculateSpeedAndDistance, formatTimestamp, getAverageSpeed, getTopSpeed } from "../util";
+import { WheelController } from "./wheelController";
+import { TICK_PROCESS_INTERVAL } from "../constants";
 
 const TICK_COLLECTION_SIZE = 4;
 
@@ -48,7 +48,7 @@ const processTicks = () => {
   });
 
   console.log(`setting speed to ${speed}`);
-  WheelService.setSpeed(speed);
+  WheelController.setSpeed(speed);
   speedValues.push(speed);
   updateSessionDistance(distance);
   console.log(`Elapsed Time: ${elapsedTime}ms`);
