@@ -1,8 +1,9 @@
 import { DateTime } from "luxon";
 import {
+  CAT_WHEEL_CIRCUMFERENCE_INCHES,
+  GEAR_RATIO,
   INCHES_PER_MILE,
   MS_PER_SECOND,
-  ROLLERBLADE_CIRCUMFERENCE_INCHES,
   SECONDS_PER_HOUR,
 } from "./constants";
 import { Tick } from "./types";
@@ -15,9 +16,12 @@ interface SpeedAndDistance {
 export const calculateSpeedAndDistance = (ticks: Tick[]): SpeedAndDistance => {
   if (ticks.length < 2) return { speed: 0, distance: 0 }; // Need at least two ticks to calculate speed
 
+  // Calculate the distance per tick on the cat wheel considering the gear ratio
+  const distancePerTickInches = CAT_WHEEL_CIRCUMFERENCE_INCHES / GEAR_RATIO;
+
   // Calculate total distance
-  const totalTicks = ticks.length;
-  const totalDistanceInches = totalTicks * ROLLERBLADE_CIRCUMFERENCE_INCHES;
+  const totalTicks = ticks.length - 1; // Subtract one to get intervals between ticks
+  const totalDistanceInches = totalTicks * distancePerTickInches;
 
   // Calculate total time in hours
   const startTime = ticks[0].timestamp;
