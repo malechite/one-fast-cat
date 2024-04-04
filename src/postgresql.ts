@@ -11,6 +11,7 @@ declare module "./declarations" {
 
 export const postgresql = (app: Application) => {
   const config = app.get("postgresql");
+  console.log("postgresql config", config);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const db = knex(config!);
 
