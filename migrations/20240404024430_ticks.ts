@@ -7,7 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid('sessionId').references('id').inTable('sessions').onDelete('CASCADE');
     table.bigInteger('timestamp').notNullable();
     table.bigInteger('raw');
-    table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamps(true, true);
   })
 }
 
