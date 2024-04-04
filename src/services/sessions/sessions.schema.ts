@@ -18,8 +18,6 @@ export const sessionsSchema = Type.Object(
     averageSpeed: Type.Number(),
     topSpeed: Type.Number(),
     totalNumberOfTicks: Type.Number(),
-    created_at: Type.Optional(Type.String()),
-    updated_at: Type.Optional(Type.String())
   },
   { $id: 'Sessions', additionalProperties: false }
 )
