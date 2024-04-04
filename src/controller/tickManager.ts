@@ -76,9 +76,11 @@ const resetSession = () => {
   console.log("Session reset");
 };
 
+const getLastTickTimestamp = () => history[history.length - 1].timestamp;
+
 const endSession = () => {
   if (!session) return;
-  session.endTime = Date.now();
+  session.endTime = getLastTickTimestamp();
   session.averageSpeed = getAverageSpeed(speedValues);
   session.topSpeed = getTopSpeed(speedValues);
   session.totalNumberOfTicks = history.length;
