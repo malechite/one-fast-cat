@@ -24,7 +24,7 @@ export const ticksResolver = resolve<Ticks, HookContext<TicksService>>({})
 export const ticksExternalResolver = resolve<Ticks, HookContext<TicksService>>({})
 
 // Schema for creating new entries
-export const ticksDataSchema = Type.Pick(ticksSchema, ['timestamp'], {
+export const ticksDataSchema = Type.Pick(ticksSchema, ['sessionId', 'timestamp', 'raw'], {
   $id: 'TicksData'
 })
 export type TicksData = Static<typeof ticksDataSchema>
