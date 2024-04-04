@@ -46,7 +46,7 @@ const processTicks = () => {
   const { speed, distance } = calculateSpeedAndDistance(ticks);
 
   console.log(`Processing ${ticks.length} ticks...`);
-  ticks.forEach((tick) => tick.sessionId = session?.id);
+  ticks.forEach((tick) => (tick.sessionId = session?.id));
 
   console.log(`setting speed to ${speed}`);
   WheelController.setSpeed(speed);
@@ -80,11 +80,13 @@ const getLastTickTimestamp = () => history[history.length - 1].timestamp;
 
 const endSession = () => {
   if (!session) return;
-  session.endTime = new Date(getLastTickTimestamp() * 1000).toISOString();
+  session.endTime = new Date(getLastTickTimestamp()).toISOString();
   session.averageSpeed = getAverageSpeed(speedValues);
   session.topSpeed = getTopSpeed(speedValues);
   session.totalNumberOfTicks = history.length;
-  session.duration = session.endTime ? new Date(session.endTime).getTime() - new Date(session.startTime).getTime() : 0;
+  session.duration = session.endTime
+    ? new Date(session.endTime).getTime() - new Date(session.startTime).getTime()
+    : 0;
 
   sessionService.update(session.id, session);
   logSessionToConsole();
