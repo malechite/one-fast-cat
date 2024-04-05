@@ -85,7 +85,7 @@ const endSession = () => {
   session.topSpeed = getTopSpeed(speedValues);
   session.totalNumberOfTicks = history.length;
   session.duration = session.endTime
-    ? new Date(session.endTime).getTime() - new Date(session.startTime).getTime() / 1000
+    ? (new Date(session.endTime).getTime() - new Date(session.startTime).getTime()) / 1000
     : 0;
 
   sessionService.update(session.id, session);
